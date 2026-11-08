@@ -1,0 +1,21 @@
+covariate,level,n_outcome0,n_outcome1,min_cell
+age_group,20-34,527,557,527
+age_group,35-49,573,497,497
+age_group,50-64,722,620,620
+age_group,65+,699,569,569
+sex,Male,1096,1218,1096
+sex,Female,1425,1025,1025
+race,Non-Hispanic White,961,796,796
+race,Non-Hispanic Black,503,578,503
+race,Mexican American,297,294,294
+race,Other Hispanic,227,187,187
+race,Non-Hispanic Asian,418,260,260
+race,Other/Multiracial,115,128,115
+educ,College graduate+,801,362,362
+educ,Some college,828,730,730
+educ,HS grad/GED,551,601,551
+educ,<High school,341,550,341
+income_cat,>=4.0,902,330,330
+income_cat,<1.0 (below poverty),347,527,347
+income_cat,1.0-1.99,559,789,559
+income_cat,2.0-3.99,713,597,597

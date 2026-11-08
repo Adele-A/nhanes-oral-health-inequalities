@@ -1,0 +1,9 @@
+outcome,group_variable,group_level,estimate,se,ci_low,ci_high,df,n_unweighted,reliability_flag,reliable,reliability_reason
+Self-reported unmet dental need,Overall,All adults 20+,0.18208597911785793,0.008874009600364805,0.16345991315994662,0.20188625034599939,15,5459,reliable,TRUE,meets NCHS standards
+Self-reported unmet dental need,Family income (PIR),<1.0 (below poverty),0.3768589043083903,0.015131999347945298,0.34454112671465426,0.4100141249184234,15,843,reliable,TRUE,meets NCHS standards
+Self-reported unmet dental need,Family income (PIR),1.0-1.99,0.28713386669797103,0.02228065378744524,0.24023759812451143,0.33768147627111555,15,1332,reliable,TRUE,meets NCHS standards
+Self-reported unmet dental need,Family income (PIR),2.0-3.99,0.16532121744323128,0.01116135853972324,0.14210068362844624,0.19066366861718786,15,1295,reliable,TRUE,meets NCHS standards
+Self-reported unmet dental need,Family income (PIR),>=4.0,0.063972143800275,0.012149855291661144,0.040514813763573645,0.09526749166436388,15,1223,reliable,TRUE,meets NCHS standards
+Self-reported unmet dental need,Family income (PIR),Missing,0.2161460634883196,0.027168477766401238,0.16049480015623743,0.28065324858018537,15,766,reliable,TRUE,meets NCHS standards
+Self-reported unmet dental need,Insurance,Insured,0.14373317221858203,0.004875745306247922,0.1334694355904215,0.15447443805095562,15,4652,reliable,TRUE,meets NCHS standards
+Self-reported unmet dental need,Insurance,Uninsured,0.42528465862315723,0.031138732323136704,0.3581285267428549,0.4945420679642675,15,790,reliable,TRUE,meets NCHS standards

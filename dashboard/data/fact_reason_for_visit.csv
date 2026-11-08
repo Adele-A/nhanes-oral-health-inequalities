@@ -1,0 +1,4 @@
+group_variable,group_level,reason,weighted_pct,weighted_pct_se,n_unweighted
+Overall,All adults with visit <=12 mo,Preventive,73.12480820378363,1.4358293392084471,2019
+Overall,All adults with visit <=12 mo,Problem-driven,25.83175067331457,1.3831636000024756,852
+Overall,All adults with visit <=12 mo,Other,1.0434411229017992,0.21762386735139244,39

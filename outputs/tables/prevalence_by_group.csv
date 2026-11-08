@@ -1,0 +1,28 @@
+outcome,group_variable,group_level,estimate,se,ci_low,ci_high,df,n_unweighted,reliability_flag,reliable,reliability_reason
+No dental visit in past 12 months,Overall,All adults 20+,0.41266924740691485,0.02278522058608315,0.36366290611327884,0.4629944141718284,15,5549,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Age group,20-34,0.5132988666397755,0.026603419370673325,0.4550889148636506,0.5712427777545488,15,1267,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Age group,35-49,0.41726908670911356,0.02755044002925766,0.35795231676202277,0.4784126746300559,15,1228,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Age group,50-64,0.37433907511840014,0.03241538948768554,0.3051243047586037,0.4475678612601023,15,1565,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Age group,65+,0.3221128231116501,0.021623398890221333,0.276279400419222,0.3706331350789107,15,1489,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Sex,Male,0.4634363864545593,0.024712766919442648,0.4098480264717249,0.5176583871086188,15,2690,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Sex,Female,0.3655357065881902,0.02229139114082083,0.3179413000232213,0.41516189064127207,15,2859,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Race/ethnicity,Non-Hispanic White,0.3752736296570652,0.028980702473612674,0.31334134291300747,0.44037749683593863,15,1927,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Race/ethnicity,Non-Hispanic Black,0.5184547520585694,0.0223677297804166,0.4696548813642135,0.5669945979447744,15,1297,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Race/ethnicity,Mexican American,0.5324499691072337,0.018177744815845595,0.49159701030761066,0.57298175136424,15,731,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Race/ethnicity,Other Hispanic,0.4158959147921378,0.029702476632930682,0.3520251152146488,0.48192597564711315,15,514,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Race/ethnicity,Non-Hispanic Asian,0.3825718363851061,0.022786415601463425,0.3335405198474727,0.43344268553504006,15,808,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Race/ethnicity,Other/Multiracial,0.4596903601445661,0.06371840041098248,0.3208656530407305,0.6032505042826073,15,272,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Education,College graduate+,0.25134370703028525,0.015530628269246142,0.21868674330510643,0.28623905810674477,15,1336,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Education,Some college,0.42578354245097944,0.026349872340859722,0.36896704861088914,0.484089773524776,15,1775,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Education,HS grad/GED,0.503463475432011,0.032500715868787514,0.4321594400187655,0.5746635874234968,15,1319,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Education,<High school,0.6008862461238157,0.02368646634745923,0.5484183415543967,0.6516909891865961,15,1108,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Family income (PIR),<1.0 (below poverty),0.5845137713249239,0.03082980299204832,0.5158020740116216,0.6508800059354543,15,876,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Family income (PIR),1.0-1.99,0.5700713300875165,0.02885413458102844,0.5060946882298418,0.6323621620081423,15,1349,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Family income (PIR),2.0-3.99,0.4256251146227302,0.02435962348697711,0.3731446728202149,0.4793783270637777,15,1311,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Family income (PIR),>=4.0,0.2542780045883482,0.021348254090600385,0.20963337662796222,0.30310445745802017,15,1232,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Family income (PIR),Missing,0.4325536843190377,0.04363298490258352,0.33812682969947716,0.5307264519382595,15,781,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Self-rated oral health,Excellent/Very good,0.28473627663746065,0.021310618744556226,0.23986027389282208,0.333005230172689,15,1833,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Self-rated oral health,Good,0.4182062219479722,0.02119554267127051,0.37262345192244034,0.46485079832040976,15,1832,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Self-rated oral health,Fair/Poor,0.5904885791081783,0.0282064443989679,0.5277074532683569,0.6511604263159864,15,1877,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Insurance,Insured,0.36615307661389623,0.017570777073735888,0.32862159535578955,0.4049335376327535,15,4696,reliable,TRUE,meets NCHS standards
+No dental visit in past 12 months,Insurance,Uninsured,0.7016585666854993,0.029709718450827764,0.6332870451206543,0.7639743956138256,15,836,reliable,TRUE,meets NCHS standards

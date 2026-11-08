@@ -1,0 +1,216 @@
+---
+title: "Inequalities in Dental-Care Use among U.S. Adults"
+subtitle: "A design-based analysis of NHANES 2017-2018"
+author: "Adele Amanzhol"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+    fig-width: 8
+    df-print: kable
+execute:
+  echo: false
+  warning: false
+  message: false
+knitr:
+  opts_chunk:
+    dev: "png"
+---
+
+```{r setup}
+library(here); library(dplyr); library(knitr); library(survey)
+source(here::here("R", "config.R"))
+source(here::here("R", "02_prepare.R"))
+source(here::here("R", "03_design.R"))
+source(here::here("R", "utils_reliability.R"))
+source(here::here("R", "04_descriptives.R"))
+source(here::here("R", "05_models.R"))
+
+cache <- here::here("data", "processed", "analytic.rds")
+dat <- if (file.exists(cache)) readRDS(cache) else prepare_data(write_cache = TRUE)
+design <- build_design(dat)
+assert_full_design(design, nrow(dat))
+
+descr  <- run_descriptives(design, write = FALSE)
+models <- run_models(design, write = FALSE)
+
+n_adults <- nrow(subset(design, is_adult == 1)$variables)
+dfdesign <- survey::degf(subset(design, is_adult == 1))
+ov <- descr$prevalence[descr$prevalence$group_variable == "Overall", ]
+pct <- function(x) sprintf("%.1f%%", 100 * x)
+```
+
+> **Independent portfolio project.** Not affiliated with CDC/NCHS. All findings are
+> **associations** in cross-sectional data, never causal effects. Estimates are design-based
+> (survey weights, strata, PSUs). Results describe **U.S.** adults and do **not** transfer to
+> other health systems (e.g. Germany).
+
+# Introduction
+
+Regular dental-care use is unevenly distributed across the U.S. adult population. Using the
+2017-2018 National Health and Nutrition Examination Survey (NHANES), this analysis describes
+how **not having visited a dentist in the past 12 months** is associated with age, sex,
+race/ethnicity, education, family income, self-rated oral health, and health-insurance
+coverage. The analysis plan was pre-specified (`docs/analysis_plan.md`) and the measure
+definitions were verified against the OHQ_J codebook (`docs/variable_map.md`) before any
+association was estimated.
+
+# Data & Methods
+
+**Data.** NHANES 2017-2018 public-use files `DEMO_J` (demographics + survey design),
+`OHQ_J` (oral-health questionnaire) and `HIQ_J` (insurance), merged on `SEQN`. Public-domain
+CDC/NCHS data.
+
+**Survey design.** The complex-survey design is built on the **full** `DEMO_J` sample
+(`r format(nrow(dat), big.mark=",")` participants) with
+`svydesign(id = ~SDMVPSU, strata = ~SDMVSTRA, weights = ~WTINT2YR, nest = TRUE)`. The
+oral-health items are part of the in-home interview, so the **interview** weight `WTINT2YR`
+is used (not the MEC weight). The analytic subpopulation --- interviewed adults aged 20+ ---
+is taken as a survey **domain** via `subset()`, never by filtering before the design is built.
+The design has **`r dfdesign` degrees of freedom**, used for all confidence intervals and tests.
+
+**Outcome.** *No dental visit in the past 12 months*: `OHQ030 in {3,4,5,6,7}` vs `{1,2}`;
+refused/don't-know recoded to missing. This is a **utilization indicator**, not proven unmet need.
+
+**Estimation.** Weighted proportions with 95% Korn-Graubard ("beta") confidence intervals
+(`svyciprop`), with the unweighted denominator shown alongside. Estimate reliability follows
+the NCHS Data Presentation Standards for Proportions (Parker et al. 2017). Associations are
+modelled with `svyglm`: **odds ratios** (`quasibinomial`) and **prevalence ratios**
+(`quasipoisson`, log link), because the outcome is common and odds ratios then overstate the
+relative risk. Wald tests (`regTermTest`) assess categorical terms. Full code is in `R/`.
+
+# Results
+
+Of `r format(nrow(dat), big.mark=",")` NHANES participants, **`r format(n_adults, big.mark=",")`**
+were interviewed adults aged 20+. Overall, **`r pct(ov$estimate)`** (95% CI
+`r pct(ov$ci_low)`-`r pct(ov$ci_high)`) had **no dental visit in the past 12 months**.
+
+## Sample characteristics (Table 1)
+
+```{r table1}
+descr$table1 |>
+  dplyr::transmute(Variable = variable, Level = level,
+                   `n (unweighted)` = n_unweighted,
+                   `Weighted %` = sprintf("%.1f", weighted_pct)) |>
+  knitr::kable()
+```
+
+## No recent dental visit, by group
+
+Weighted prevalence with 95% CIs; open markers denote NCHS reliability-flagged estimates.
+
+```{r prev-fig, fig.height=9}
+make_prevalence_figure(descr$prevalence)
+```
+
+```{r prev-tab}
+descr$prevalence |>
+  dplyr::filter(group_variable != "Overall") |>
+  dplyr::transmute(Group = group_variable, Level = group_level,
+                   `Prevalence` = pct(estimate),
+                   `95% CI` = paste0(pct(ci_low), "-", pct(ci_high)),
+                   `n` = n_unweighted, Reliability = reliability_flag) |>
+  knitr::kable()
+```
+
+## Reason for last visit and self-reported unmet need
+
+Among adults with a visit in the past 12 months, the main reason was predominantly
+preventive (`r sprintf("%.0f%%", descr$reason$weighted_pct[descr$reason$reason=="Preventive"])`
+preventive vs `r sprintf("%.0f%%", descr$reason$weighted_pct[descr$reason$reason=="Problem-driven"])`
+problem-driven). Separately, **`r pct(descr$unmet$estimate[descr$unmet$group_variable=="Overall"])`**
+of adults reported needing dental care in the past year but being unable to get it; the most
+common reason was cost.
+
+```{r unmet-reasons}
+descr$unmet_reasons |>
+  dplyr::arrange(dplyr::desc(weighted_pct)) |>
+  dplyr::transmute(`Reason unmet need could not be met` = reason_label,
+                   `Weighted %` = sprintf("%.1f", weighted_pct),
+                   `n endorsed` = n_endorsed) |>
+  knitr::kable()
+```
+
+## Adjusted associations
+
+Adjusted odds ratios (model b: all sociodemographic covariates) for no recent dental visit:
+
+```{r forest, fig.height=7}
+make_forest(models$coefficients)
+```
+
+```{r coef-tab}
+models$coefficients |>
+  dplyr::filter(model == "Adjusted (b)") |>
+  dplyr::transmute(Measure = measure, Term = term,
+                   Estimate = sprintf("%.2f", estimate),
+                   `95% CI` = sprintf("%.2f-%.2f", ci_low, ci_high),
+                   p = signif(p_value, 2)) |>
+  knitr::kable()
+```
+
+Overall tests of each categorical term (Wald, design df):
+
+```{r wald-tab}
+models$wald |>
+  dplyr::filter(model == "Adjusted (b)") |>
+  dplyr::transmute(Term = term, `num df` = df, `den df` = ddf,
+                   F = sprintf("%.1f", F), p = signif(p_value, 2)) |>
+  knitr::kable()
+```
+
+Odds ratios are larger than the corresponding prevalence ratios (e.g. lowest income band),
+as expected for a common outcome; the prevalence ratios are the more conservative measure of
+relative difference.
+
+## Sensitivity analysis: missing income
+
+`r sprintf("%.1f%%", 100*mean(is.na(dat$INDFMPIR[dat$is_adult==1])))` of adults were missing
+family income. The primary model uses complete cases; a missing-indicator model retaining the
+full sample gives materially similar income associations:
+
+```{r sens-tab}
+models$sensitivity |>
+  dplyr::filter(grepl("income", term)) |>
+  dplyr::transmute(Model = model, Term = term,
+                   OR = sprintf("%.2f", estimate),
+                   `95% CI` = sprintf("%.2f-%.2f", ci_low, ci_high), n = n) |>
+  knitr::kable()
+```
+
+# Discussion
+
+Lower education, lower family income, being uninsured, and worse self-rated oral health are
+each **associated with** a higher prevalence of not having a recent dental visit, and the
+income and education gradients persist after mutual adjustment. Younger adults and men were
+also more likely to report no recent visit. These patterns are consistent with well-documented
+socioeconomic inequalities in dental-care access in the United States, where dental coverage is
+often separate from medical insurance and routine dental care is excluded from traditional
+Medicare. Because the outcome is common, prevalence ratios (reported alongside odds ratios) give
+a more interpretable sense of the relative differences.
+
+# Limitations
+
+- **Cross-sectional**: associations only; no causal or temporal inference.
+- **Self-report**: dental-visit timing and oral-health rating are subject to recall and
+  social-desirability bias.
+- "No recent visit" is a **utilization indicator**, not equivalent to unmet need.
+- Data are **2017-2018**, before the COVID-19 pandemic.
+- **U.S. sample**: results do **not** transfer to other systems (e.g. Germany), which differ in
+  insurance and dental-care organization.
+- ~13% of adults were missing family income; sensitivity analysis addresses but does not
+  eliminate this.
+- Small subgroups carry wide CIs; NCHS-flagged estimates are marked.
+
+# References
+
+- CDC/NCHS. National Health and Nutrition Examination Survey (NHANES) 2017-2018: DEMO_J, OHQ_J,
+  HIQ_J data files and codebooks. <https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/OHQ_J.htm>
+- CDC/NCHS. NHANES Analytic and Reporting Guidelines.
+- Parker JD, Talih M, Malec DJ, et al. (2017). National Center for Health Statistics Data
+  Presentation Standards for Proportions. *Vital Health Stat* 2(175).
+- Lumley T. *survey*: analysis of complex survey samples. R package.

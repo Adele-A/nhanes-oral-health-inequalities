@@ -1,0 +1,4 @@
+reliability_flag,meaning
+reliable,Meets NCHS Data Presentation Standards for Proportions (Parker et al. 2017)
+review,Present with caution: wide CI / low df / small effective n
+suppress,Do not present: unweighted denominator < 30
