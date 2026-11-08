@@ -1,0 +1,42 @@
+{
+  "dataset": "NHANES 2017-2018 (cycle J)",
+  "cycle": "2017-2018",
+  "retrieved_by": "R/01_download.R",
+  "ohq_codebook": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/OHQ_J.htm",
+  "note": "Public-domain CDC/NCHS data; files not committed to git (see .gitignore).",
+  "files": {
+    "DEMO": {
+      "file": "DEMO_J.XPT",
+      "url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.XPT",
+      "source": "CDC/NCHS, National Health and Nutrition Examination Survey (NHANES) 2017-2018",
+      "license": "U.S. public domain",
+      "download_date": "2026-11-09",
+      "sha256": "c0b46e0345ea19404928656277c8b0d10b0cca348a9b2fe4fc3c67e8b7ee73ec",
+      "bytes": 3412720,
+      "n_rows": 9254,
+      "n_cols": 46
+    },
+    "OHQ": {
+      "file": "OHQ_J.XPT",
+      "url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/OHQ_J.XPT",
+      "source": "CDC/NCHS, National Health and Nutrition Examination Survey (NHANES) 2017-2018",
+      "license": "U.S. public domain",
+      "download_date": "2026-11-09",
+      "sha256": "ca11ce2499694b2254d1c7b6adcd97775fdc132f4b31d01a16690bbbd95e253e",
+      "bytes": 3138640,
+      "n_rows": 8897,
+      "n_cols": 44
+    },
+    "HIQ": {
+      "file": "HIQ_J.XPT",
+      "url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/HIQ_J.XPT",
+      "source": "CDC/NCHS, National Health and Nutrition Examination Survey (NHANES) 2017-2018",
+      "license": "U.S. public domain",
+      "download_date": "2026-11-09",
+      "sha256": "96dfdd98507ea6dc67cb2c2b6999da3c035f3f8a9a87cf34756fe30762387860",
+      "bytes": 1187520,
+      "n_rows": 9254,
+      "n_cols": 16
+    }
+  }
+}

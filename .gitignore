@@ -1,0 +1,29 @@
+# Raw data is not committed (public-domain NHANES, re-downloadable); keep the manifest only
+data/raw/*
+!data/raw/MANIFEST.json
+
+# Processed-data cache is a build artifact
+data/processed/
+
+# renv library (restored from renv.lock)
+renv/library/
+renv/local/
+renv/cellar/
+renv/lock/
+renv/python/
+renv/sandbox/
+renv/staging/
+
+# R session / history
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# Quarto intermediates (the self-contained HTML report IS committed as the portfolio deliverable)
+/report/*_files/
+.quarto/
+
+# OS cruft
+.DS_Store
+Thumbs.db

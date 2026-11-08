@@ -1,0 +1,7 @@
+* text=auto eol=lf
+
+# Binary assets: no EOL normalization
+*.png binary
+*.xpt binary
+*.XPT binary
+*.pdf binary
